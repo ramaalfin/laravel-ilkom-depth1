@@ -12,7 +12,9 @@ class JurusanController extends Controller
      */
     public function index()
     {
-        //
+        return view('jurusans.index', [
+            'jurusans' => Jurusan::withCount('mahasiswas')->orderBy('nama')->get() //menghitung total mahasiswa
+        ]);
     }
 
     /**
