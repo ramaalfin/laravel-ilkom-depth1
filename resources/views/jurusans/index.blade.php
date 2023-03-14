@@ -16,8 +16,8 @@
                 <div class="card-text pb-4">
                     Total Mahasiswa : {{ $jurusan->mahasiswas_count }} (daya tampung {{ $jurusan->daya_tampung }})
                 </div>
-                <a href="{{ route('dosens.index') }}" class="btn btn-info d-block mb-2">Dosen</a>
-                <a href="{{ route('mahasiswas.index') }}" class="btn btn-warning d-block">Mahasiswa</a>
+                <a href="{{ route('jurusan-dosen', ['jurusan_id' => $jurusan->id]) }}" class="btn btn-info d-block mb-2">Dosen</a>
+                <a href="{{ route('jurusan-mahasiswa', ['jurusan_id' => $jurusan->id]) }}" class="btn btn-warning d-block">Mahasiswa</a>
             </div>
         </div>
     </div>

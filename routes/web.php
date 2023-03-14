@@ -16,6 +16,9 @@ Route::resource('mahasiswas', MahasiswaController::class);
 Route::resource('dosens', DosenController::class);
 Route::resource('matakuliahs', MataKuliahController::class);
 
+Route::get('jurusan-dosen', [JurusanController::class, 'jurusanDosen'])->name('jurusan-dosen');
+Route::get('jurusan-mahasiswa', [JurusanController::class, 'jurusanMahasiswa'])->name('jurusan-mahasiswa');
+
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

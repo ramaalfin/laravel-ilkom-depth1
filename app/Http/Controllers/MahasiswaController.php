@@ -12,7 +12,9 @@ class MahasiswaController extends Controller
      */
     public function index()
     {
-        //
+        return view('mahasiswas.index', [
+            'mahasiswas' => Mahasiswa::with('jurusan')->orderBy('nama')->paginate(10),
+        ]);
     }
 
     /**

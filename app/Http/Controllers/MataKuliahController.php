@@ -12,7 +12,9 @@ class MataKuliahController extends Controller
      */
     public function index()
     {
-        //
+        return view('matakuliahs.index', [
+            'matakuliahs' => MataKuliah::with(['jurusan', 'dosen'])->orderBy('nama')->paginate(10)
+        ]);
     }
 
     /**

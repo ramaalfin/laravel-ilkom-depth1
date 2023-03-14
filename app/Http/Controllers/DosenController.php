@@ -12,7 +12,9 @@ class DosenController extends Controller
      */
     public function index()
     {
-        //
+        return view('dosens.index', [
+            'dosens' => Dosen::with('jurusan')->orderBy('nama')->paginate(5)
+        ]);
     }
 
     /**
