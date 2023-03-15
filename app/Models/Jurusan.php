@@ -21,6 +21,6 @@ class Jurusan extends Model
 
     public function matakuliahs()
     {
-        return $this->hasMany('App\Models\MataKuliah');
+        return $this->hasMany('App\Models\Matakuliah');
     }
 }

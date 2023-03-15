@@ -38,7 +38,7 @@ class DosenController extends Controller
      */
     public function show(Dosen $dosen)
     {
-        //
+        return view('dosens.show', compact('dosen'));
     }
 
     /**

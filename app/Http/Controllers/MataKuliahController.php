@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\MataKuliah;
+use App\Models\Matakuliah;
 use Illuminate\Http\Request;
 
-class MataKuliahController extends Controller
+class MatakuliahController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -13,7 +13,7 @@ class MataKuliahController extends Controller
     public function index()
     {
         return view('matakuliahs.index', [
-            'matakuliahs' => MataKuliah::with(['jurusan', 'dosen'])->orderBy('nama')->paginate(10)
+            'matakuliahs' => Matakuliah::with(['jurusan', 'dosen'])->orderBy('nama')->paginate(10)
         ]);
     }
 
@@ -36,15 +36,18 @@ class MataKuliahController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(MataKuliah $mataKuliah)
+    public function show(Matakuliah $matakuliah)
     {
-        //
+        return view('matakuliahs.show', [
+            'matakuliah' => $matakuliah,
+            'mahasiswas' => $matakuliah->mahasiswas->sortBy('nama'),
+        ]);
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(MataKuliah $mataKuliah)
+    public function edit(Matakuliah $matakuliah)
     {
         //
     }
@@ -52,7 +55,7 @@ class MataKuliahController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, MataKuliah $mataKuliah)
+    public function update(Request $request, Matakuliah $matakuliah)
     {
         //
     }
@@ -60,7 +63,7 @@ class MataKuliahController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(MataKuliah $mataKuliah)
+    public function destroy(Matakuliah $matakuliah)
     {
         //
     }

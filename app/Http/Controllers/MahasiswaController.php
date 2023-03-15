@@ -38,7 +38,10 @@ class MahasiswaController extends Controller
      */
     public function show(Mahasiswa $mahasiswa)
     {
-        //
+        return view('mahasiswas.show', [
+            'mahasiswa' => $mahasiswa,
+            'matakuliahs' => $mahasiswa->matakuliahs->sortBy('nama')
+        ]);
     }
 
     /**

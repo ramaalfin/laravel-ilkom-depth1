@@ -4,7 +4,7 @@
 
 <div class="row cols-1 row-cols md-2 cols-xl-3 g-4">
     @foreach ($jurusans as $jurusan)
-        
+
     <div class="col">
         <div class="card h-100">
             <div class="card-body text-center">
@@ -17,7 +17,8 @@
                     Total Mahasiswa : {{ $jurusan->mahasiswas_count }} (daya tampung {{ $jurusan->daya_tampung }})
                 </div>
                 <a href="{{ route('jurusan-dosen', ['jurusan_id' => $jurusan->id]) }}" class="btn btn-info d-block mb-2">Dosen</a>
-                <a href="{{ route('jurusan-mahasiswa', ['jurusan_id' => $jurusan->id]) }}" class="btn btn-warning d-block">Mahasiswa</a>
+                <a href="{{ route('jurusan-mahasiswa', ['jurusan_id' => $jurusan->id]) }}" class="btn btn-warning d-block mb-2">Mahasiswa</a>
+                <a href="{{ route('jurusan-matakuliah', ['jurusan_id' => $jurusan->id]) }}" class="btn btn-danger d-block">Mata Kuliah</a>
             </div>
         </div>
     </div>
