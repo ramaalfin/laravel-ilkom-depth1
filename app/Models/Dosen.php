@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Dosen extends Model
 {
     use HasFactory;
+    protected $guarded = [];
     public function jurusan()
     {
         return $this->belongsTo('App\Models\Jurusan');

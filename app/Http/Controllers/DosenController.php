@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Dosen;
+use App\Models\Jurusan;
 use Illuminate\Http\Request;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class DosenController extends Controller
 {
@@ -13,7 +15,7 @@ class DosenController extends Controller
     public function index()
     {
         return view('dosens.index', [
-            'dosens' => Dosen::with('jurusan')->orderBy('nama')->paginate(5)
+            'dosens' => Dosen::with('jurusan')->orderByDesc('created_at')->paginate(5)
         ]);
     }
 
@@ -22,7 +24,9 @@ class DosenController extends Controller
      */
     public function create()
     {
-        //
+        return view('dosens.create', [
+            'jurusans' => Jurusan::orderBy('nama')->get()
+        ]);
     }
 
     /**
@@ -30,7 +34,14 @@ class DosenController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'NID' => 'required|alpha_num|size:8|unique:dosens,NID',
+            'nama' => "required",
+            'jurusan_id' => 'required|exists:jurusans,id'
+        ]);
+        Dosen::create($validated);
+        Alert::success('Berhasil', "Dosen $request->nama berhasil dibuat");
+        return redirect('/dosens');
     }
 
     /**
