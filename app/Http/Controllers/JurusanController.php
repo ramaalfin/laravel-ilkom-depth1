@@ -8,6 +8,7 @@ use App\Models\Mahasiswa;
 use App\Models\MataKuliah;
 use Illuminate\Http\Request;
 use mysqli;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class JurusanController extends Controller
 {
@@ -50,7 +51,7 @@ class JurusanController extends Controller
      */
     public function create()
     {
-        //
+        return view('jurusans.create'); //todo memanggil view create
     }
 
     /**
@@ -58,7 +59,14 @@ class JurusanController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validate = $request->validate([
+            'nama' => 'required',
+            'kepala_jurusan' => 'required',
+            'daya_tampung' => 'required'
+        ]);
+        $jurusan = Jurusan::create($validate); //*ELOQUENT untuk mass assignment
+        Alert::success('Berhasil', "Jurusan $request->nama berhasil dibuat");
+        return redirect("/jurusans#card-{$jurusan->id}");
     }
 
     /**

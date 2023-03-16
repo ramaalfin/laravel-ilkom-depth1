@@ -20,4 +20,4 @@ Route::get('/jurusan-matakuliah/{jurusan_id}', [JurusanController::class, 'jurus
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/home', [JurusanController::class, 'index'])->name('home');

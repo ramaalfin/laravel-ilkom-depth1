@@ -2,7 +2,13 @@
 @section('content')
 <h1 class="display-4 text-center my-5">Sistem Informasi Universitas ILKOOM</h1>
 
-<div class="row cols-1 row-cols md-2 cols-xl-3 g-4">
+<div class="text-end pt-5 pb-4">
+    @auth
+        <a href="{{ route('jurusans.create') }}" class="btn btn-info">Tambah Jurusan</a>
+    @endauth
+</div>
+
+<div class="row cols-1 row-cols-md-2 row-cols-lg-3 g-4">
     @foreach ($jurusans as $jurusan)
 
     <div class="col">
