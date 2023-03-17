@@ -1,6 +1,13 @@
 @extends('layouts.app')
 @section('content')
 <h1 class="display-4 text-center my-5" id="judul">Data Mata Kuliah {{ $nama_jurusan ?? 'Universitas ILKOOM' }}</h1>
+
+<div class="text-end pt-5 pb-4">
+    @auth
+        <a href="{{ route('matakuliahs.create') }}" class="btn btn-info">Tambah Mata Kuliah</a>
+    @endauth
+</div>
+
 <table class="table table-striped">
     <thead>
         <tr>
@@ -22,7 +29,7 @@
             </td>
             <td>
                 <a href="{{ route('dosens.show', ['dosen' => $matakuliah->dosen->id]) }}">{{ $matakuliah->dosen->nama }}</a>
-                
+
             </td>
             <td>{{ $matakuliah->jumlah_sks }}</td>
             <td>{{ $matakuliah->jurusan->nama }}</td>

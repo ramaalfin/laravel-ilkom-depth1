@@ -1,6 +1,13 @@
 @extends('layouts.app')
 @section('content')
 <h1 class="display-4 text-center my-5" id="judul">Data Mahasiswa {{ $nama_jurusan ?? 'Universitas ILKOOM' }}</h1>
+
+<div class="text-end pt-5 pb-4">
+    @auth
+        <a href="{{ route('mahasiswas.create') }}" class="btn btn-info">Tambah Mahasiswa</a>
+    @endauth
+</div>
+
 <table class="table table-striped">
     <thead>
         <tr>

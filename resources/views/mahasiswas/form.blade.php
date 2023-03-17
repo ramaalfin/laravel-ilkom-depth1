@@ -1,13 +1,13 @@
 @csrf
 <div class="row mb-3">
-    <label for="NID" class="col-md-3 col-form-label text-md-end">NID</label>
+    <label for="NIM" class="col-md-3 col-form-label text-md-end">NIM</label>
     <div class="col-md-4">
-        <input type="text" id="NID" class="form-control @error('NID')
+        <input type="text" id="NIM" class="form-control @error('NIM')
             is-invalid
         @enderror"
-            name="NID" value="{{ old('NID') ?? ($dosen->NID ?? '') }}" placeholder="8 digit angka NID, contoh: 99754972">
+            name="NIM" value="{{ old('NIM') ?? ($mahasiswa->NIM ?? '') }}" placeholder="8 digit angka NIM, contoh: 17200475">
 
-        @error('NID')
+        @error('NIM')
             <span class="invalid-feedback" role="alert">
                 <strong>{{ $message }}</strong>
             </span>
@@ -16,13 +16,13 @@
 </div>
 
 <div class="row mb-3">
-    <label for="nama" class="col-md-3 col-form-label text-md-end">Nama Dosen</label>
+    <label for="nama" class="col-md-3 col-form-label text-md-end">Nama Mahasiswa</label>
     <div class="col-md-4">
         <input type="text" id="nama"
             class="form-control @error('nama')
             is-invalid
         @enderror" name="nama"
-            value="{{ old('nama') ?? ($dosen->nama ?? '') }}">
+            value="{{ old('nama') ?? ($mahasiswa->nama ?? '') }}">
 
         @error('nama')
             <span class="invalid-feedback" role="alert">
@@ -38,7 +38,7 @@
         <select type="text" id="jurusan_id" class="form-select @error('jurusan_id') is-invalid @enderror"
             name="jurusan_id">
             @foreach ($jurusans as $jurusan)
-                @if ($jurusan->id == (old('jurusan_id') ?? $dosen->jurusan_id ?? ""))
+                @if ($jurusan->id == (old('jurusan_id') ?? $mahasiswa->jurusan_id ?? ""))
                     <option value="{{ $jurusan->id }}" selected>
                         {{ $jurusan->nama }}
                     </option>

@@ -37,10 +37,10 @@ class DosenController extends Controller
         $validated = $request->validate([
             'NID' => 'required|alpha_num|size:8|unique:dosens,NID',
             'nama' => "required",
-            'jurusan_id' => 'required|exists:jurusans,id'
+            'jurusan_id' => 'required|exists:jurusans,id' //* set id yang sesuai dengan id di table jurusans
         ]);
         Dosen::create($validated);
-        Alert::success('Berhasil', "Dosen $request->nama berhasil dibuat");
+        Alert::success('Berhasil', "Data Dosen $request->nama berhasil dibuat");
         return redirect('/dosens');
     }
 
