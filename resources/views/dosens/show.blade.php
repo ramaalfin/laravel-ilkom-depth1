@@ -21,4 +21,10 @@
             </li>
         @endforeach
     </ol>
+
+    <div class="text-start pt-5 pb-4">
+        @auth
+            <a href="{{ route('buat-matakuliah', ['dosen_id' => $dosen->id]) }}" class="btn btn-info">Tambahkan Mata Kuliah</a>
+        @endauth
+    </div>
 @endsection

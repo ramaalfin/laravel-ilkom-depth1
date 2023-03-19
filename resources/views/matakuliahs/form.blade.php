@@ -28,6 +28,14 @@
 
 <div class="row mb-3">
     <label for="jurusan_id" class="col-md-3 col-form-label text-md-end">Pilih Jurusan</label>
+    @if (isset($dosen_id))
+    <div class="col-md-4 flex align-items-center">
+        @foreach ($jurusans as $jurusan)
+        {{ $jurusan->nama }}
+        @endforeach
+    </div>
+    <input type="hidden" name="jurusan_id" id="jurusan_id" value="{{ $jurusan->id }}">
+    @else
     <div class="col-md-4">
         <select type="text" id="jurusan_id" class="form-select @error('jurusan_id') is-invalid @enderror"
             name="jurusan_id">
@@ -50,10 +58,18 @@
             </span>
         @enderror
     </div>
+    @endif
+
 </div>
 
 <div class="row mb-3">
     <label for="dosen_id" class="col-md-3 col-form-label text-md-end">Pilih Dosen Pengajar</label>
+    @if (isset($dosen_id))
+    <div class="col-md-4 flex align-items-center">
+        {{ $dosen_id->nama }}
+    </div>
+    <input type="hidden" name="dosen_id" id="dosen_id" value="{{ $dosen_id->id }}">
+    @else
     <div class="col-md-4">
         <select name="dosen_id" id="dosen_id"
             class="form-select @error('dosen_id')
@@ -74,6 +90,7 @@
             </span>
         @enderror
     </div>
+    @endif
 </div>
 
 <div class="row mb-3">

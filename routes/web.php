@@ -18,6 +18,9 @@ Route::get('/jurusan-dosen/{jurusan_id}', [JurusanController::class, 'jurusanDos
 Route::get('/jurusan-mahasiswa/{jurusan_id}', [JurusanController::class, 'jurusanMahasiswa'])->name('jurusan-mahasiswa');
 Route::get('/jurusan-matakuliah/{jurusan_id}', [JurusanController::class, 'jurusanMatakuliah'])->name('jurusan-matakuliah');
 
+// BUAT MATA KULIAH UNTUK DOSEN
+Route::get('/buat-matakuliah/{dosen_id}', [MatakuliahController::class, 'buatMatakuliah'])->name('buat-matakuliah');
+
 Auth::routes();
 
 Route::get('/home', [JurusanController::class, 'index'])->name('home');

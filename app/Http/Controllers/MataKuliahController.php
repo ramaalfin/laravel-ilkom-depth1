@@ -31,6 +31,14 @@ class MatakuliahController extends Controller
         ]);
     }
 
+    public function buatMatakuliah(Dosen $dosen_id)
+    {
+        return view('matakuliahs.create', [
+            'jurusans' => Jurusan::where('id', $dosen_id->jurusan->id)->get(),
+            'dosen_id' => $dosen_id
+        ]);
+    }
+
     /**
      * Store a newly created resource in storage.
      */
