@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Jurusan;
 use App\Models\Mahasiswa;
+use App\Models\Matakuliah;
 use Illuminate\Http\Request;
 use RealRashid\SweetAlert\Facades\Alert;
 
@@ -27,6 +28,30 @@ class MahasiswaController extends Controller
         return view('mahasiswas.create', [
             'jurusans' => Jurusan::orderBy('nama')->get()
         ]);
+    }
+
+    public function ambilMatakuliah(Mahasiswa $mahasiswa)
+    {
+        return view('mahasiswas.ambil-matakuliah', [
+            'mahasiswa' => $mahasiswa,
+            'matakuliahs' => Matakuliah::where('jurusan_id', $mahasiswa->jurusan_id)->orderBy('nama')->get(), // Ambil semua daftar mata kuliah dari jurusan yang sama dengan mahasiswa
+            'matakuliahs_sudah_diambil' => $mahasiswa->matakuliahs->pluck('id')->all() // Buat array dari daftar jurusan yang sudah di ambil mahasiswa
+        ]);
+    }
+
+    public function prosesAmbilMatakuliah(Request $request, Mahasiswa $mahasiswa)
+    {
+        // Ambil semua daftar mata kuliah dari jurusan yang sama dengan mahasiswa
+        $matakuliah_jurusan = Matakuliah::where('jurusan_id', $mahasiswa->jurusan->id)->pluck('id')->toArray();
+
+        $validated = $request->validate([
+            'matakuliah.*' => 'distinct|in:'.implode(',', $matakuliah_jurusan), // jika id mata kuliah yang dipilih ada di dalam syarat 'in', maka akan lolos validasi.
+        ]);
+
+        // INSERT KE DB
+        $mahasiswa->matakuliahs()->sync($validated['matakuliah'] ?? []);
+        Alert::success('Berhasil', 'Terdapat ' . count($validated['matakuliah'] ?? []) . ' mata kuliah yang diambil oleh mahasiswa');
+        return redirect(route('mahasiswas.show', ['mahasiswa' => $mahasiswa->id]));
     }
 
     /**

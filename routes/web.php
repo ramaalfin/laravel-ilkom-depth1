@@ -18,8 +18,12 @@ Route::get('/jurusan-dosen/{jurusan_id}', [JurusanController::class, 'jurusanDos
 Route::get('/jurusan-mahasiswa/{jurusan_id}', [JurusanController::class, 'jurusanMahasiswa'])->name('jurusan-mahasiswa');
 Route::get('/jurusan-matakuliah/{jurusan_id}', [JurusanController::class, 'jurusanMatakuliah'])->name('jurusan-matakuliah');
 
-// BUAT MATA KULIAH UNTUK DOSEN
+// ROUTE MEMBUAT MATA KULIAH DARI VIEW SHOW DOSEN
 Route::get('/buat-matakuliah/{dosen_id}', [MatakuliahController::class, 'buatMatakuliah'])->name('buat-matakuliah');
+
+// ROUTE MENGAMBIL MATA KULIAH DARI VIEW SHOW MAHASISWA
+Route::get('/mahasiswas/ambil-matakuliah/{mahasiswa}', [MahasiswaController::class, 'ambilMatakuliah'])->name('ambil-matakuliah');
+Route::post('/mahasiswas/ambil-matakuliah/{mahasiswa}', [MahasiswaController::class, 'prosesAmbilMatakuliah'])->name('proses-ambil-matakuliah');
 
 Auth::routes();
 

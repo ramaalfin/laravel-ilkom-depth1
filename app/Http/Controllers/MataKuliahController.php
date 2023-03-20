@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Dosen;
 use App\Models\Jurusan;
+use App\Models\Mahasiswa;
 use App\Models\Matakuliah;
 use Illuminate\Http\Request;
 use RealRashid\SweetAlert\Facades\Alert;
