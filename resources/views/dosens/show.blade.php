@@ -1,7 +1,18 @@
 @extends('layouts.app')
 @section('content')
-    <div class="pt-3">
-        <h1 class="h2">Biodata Dosen</h1>
+    <div class="pt-3 d-flex align-items-center">
+        <h1 class="h2 me-4">Biodata Dosen</h1>
+        @auth
+            <a href="{{ route('dosens.edit', ['dosen' => $dosen->id]) }}" class="btn btn-primary me-1">Edit</a>
+            <form action="{{ route('dosens.destroy', ['dosen' => $dosen->id]) }}" method="post" class="d-inline">
+                @csrf
+                @method('DELETE')
+                <button type="submit" class="btn btn-danger btn-hapus shadow-none" data-name="{{ $dosen->nama }}"
+                    data-table="dosen">
+                    Hapus
+                </button>
+            </form>
+        @endauth
     </div>
     <hr>
     <ul>
@@ -15,7 +26,8 @@
             <li>
                 {{ $matakuliah->nama }}
                 <small>
-                    (<a href="{{ route('matakuliahs.show', ['matakuliah' => $matakuliah->id]) }}">{{ $matakuliah->kode }}</a>
+                    (<a
+                        href="{{ route('matakuliahs.show', ['matakuliah' => $matakuliah->id]) }}">{{ $matakuliah->kode }}</a>
                     - {{ $matakuliah->jumlah_sks }} SKS)
                 </small>
             </li>

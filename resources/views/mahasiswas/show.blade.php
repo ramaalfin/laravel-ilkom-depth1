@@ -1,7 +1,18 @@
 @extends('layouts.app')
 @section('content')
-    <div class="pt-3">
-        <h1 class="h2">Biodata Dosen</h1>
+    <div class="pt-3 d-flex align-items-center">
+        <h1 class="h2 me-4">Biodata Mahasiswa</h1>
+        @auth
+            <a href="{{ route('mahasiswas.edit', ['mahasiswa' => $mahasiswa->id]) }}" class="btn btn-primary me-1">Edit</a>
+            <form action="{{ route('mahasiswas.destroy', ['mahasiswa' => $mahasiswa->id]) }}" method="post" class="d-inline">
+                @csrf
+                @method('DELETE')
+                <button type="submit" class="btn btn-danger btn-hapus shadow-none" data-name="{{ $mahasiswa->nama }}"
+                    data-table="mahasiswa">
+                    Hapus
+                </button>
+            </form>
+        @endauth
     </div>
     <hr>
     <ul>
