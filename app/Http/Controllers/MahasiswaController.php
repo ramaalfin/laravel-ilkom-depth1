@@ -126,6 +126,8 @@ class MahasiswaController extends Controller
      */
     public function destroy(Mahasiswa $mahasiswa)
     {
-        //
+        $mahasiswa->delete();
+        Alert::success('Berhasil', "Data $mahasiswa->nama berhasil dihapus");
+        return redirect('/mahasiswas');
     }
 }

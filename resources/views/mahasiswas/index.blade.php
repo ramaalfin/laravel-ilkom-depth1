@@ -30,7 +30,16 @@
             </td>
             <td>{{ $mahasiswa->jurusan->nama }}</td>
             @auth
-                <td><a href="{{ route('mahasiswas.edit', ['mahasiswa' => $mahasiswa->id]) }}" class="btn btn-primary">Edit</a></td>
+                <td>
+                    <a href="{{ route('mahasiswas.edit', ['mahasiswa' => $mahasiswa->id]) }}" class="btn btn-primary">Edit</a>
+                    <form action="{{ route('mahasiswas.destroy', ['mahasiswa' => $mahasiswa->id]) }}" method="post" class="d-inline">
+                        @csrf
+                        @method('DELETE')
+                        <button class="btn btn-danger btn-hapus shadow-none" data-name="{{ $mahasiswa->nama }}" data-table="mahasiswa" title="Hapus Mahasiswa">
+                            Hapus
+                        </button>
+                    </form>
+                </td>
             @endauth
         </tr>
         @endforeach

@@ -85,6 +85,8 @@ class DosenController extends Controller
      */
     public function destroy(Dosen $dosen)
     {
-        //
+        $dosen->delete();
+        Alert::success('Berhasil', "Dosen $dosen->nama berhasil dihapus");
+        return redirect('/dosens');
     }
 }

@@ -130,6 +130,8 @@ class MatakuliahController extends Controller
      */
     public function destroy(Matakuliah $matakuliah)
     {
-        //
+        $matakuliah->delete();
+        Alert::success('Berhasil', "Data $matakuliah->nama berhasil dihapus");
+        return redirect('/matakuliahs');
     }
 }
