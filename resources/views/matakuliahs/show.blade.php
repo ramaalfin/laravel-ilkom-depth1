@@ -16,7 +16,11 @@
     <ol>
         @foreach ($matakuliah->mahasiswas as $mahasiswa)
             <li>{{ $mahasiswa->nama }} (<a href="{{ route('mahasiswas.show', ['mahasiswa' => $mahasiswa->id]) }}">{{ $mahasiswa->NIM }}</a>)</li>
-
         @endforeach
     </ol>
+    <div class="text-start pt-5 pb-4">
+        @auth
+            <a href="{{ route('daftarkan-matakuliah', ['matakuliah' => $matakuliah->id]) }}" class="btn btn-info">Daftarkan Mahasiswa</a>
+        @endauth
+    </div>
 @endsection

@@ -58,6 +58,13 @@
     </div>
 </div>
 
+{{-- Trik agar bisa kembali ke halaman yang klik --}}
+@isset($dosen) {{-- $dosen berasal dari DosenController --}}
+<input type="hidden" name="url_asal" value="{{ old('url_asal') ?? url()->previous() . '#row-' . $dosen->id }}">
+@else
+<input type="hidden" name="url_asal" value="{{ old('url_asal') ?? url()->previous() }}">
+@endisset
+
 <div class="row">
     <div class="col-md-6 offset-md-3">
         <button type="submit" class="btn btn-primary">{{ $tombol }}</button>

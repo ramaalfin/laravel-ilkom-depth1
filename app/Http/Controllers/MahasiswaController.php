@@ -16,7 +16,7 @@ class MahasiswaController extends Controller
     public function index()
     {
         return view('mahasiswas.index', [
-            'mahasiswas' => Mahasiswa::with('jurusan')->orderByDesc('created_at')->paginate(10),
+            'mahasiswas' => Mahasiswa::with('jurusan')->orderBy('nama')->paginate(10),
         ]);
     }
 
@@ -35,7 +35,7 @@ class MahasiswaController extends Controller
         return view('mahasiswas.ambil-matakuliah', [
             'mahasiswa' => $mahasiswa,
             'matakuliahs' => Matakuliah::where('jurusan_id', $mahasiswa->jurusan_id)->orderBy('nama')->get(), // Ambil semua daftar mata kuliah dari jurusan yang sama dengan mahasiswa
-            'matakuliahs_sudah_diambil' => $mahasiswa->matakuliahs->pluck('id')->all() // Buat array dari daftar jurusan yang sudah di ambil mahasiswa
+            'matakuliahs_sudah_diambil' => $mahasiswa->matakuliahs->pluck('id')->all() // Buat array dari daftar mata kuliah yang sudah di ambil mahasiswa
         ]);
     }
 
@@ -93,7 +93,10 @@ class MahasiswaController extends Controller
      */
     public function edit(Mahasiswa $mahasiswa)
     {
-        //
+        return view('mahasiswas.edit', [
+            'mahasiswa' => $mahasiswa,
+            'jurusans' => Jurusan::orderBy('nama')->get()
+        ]);
     }
 
     /**
@@ -101,7 +104,21 @@ class MahasiswaController extends Controller
      */
     public function update(Request $request, Mahasiswa $mahasiswa)
     {
-        //
+        $validated = $request->validate([
+            'NIM' => 'required|size:8|alpha_num|unique:mahasiswas,nim,'.$mahasiswa->id,
+            'nama' => 'required',
+            'jurusan_id' => 'required|exists:jurusans,id'
+        ]);
+
+        // todo Antisipasi jika ada yang edit inputan jurusan_id yang sudah di hidden
+        if (($mahasiswa->matakuliahs()->count() > 0) AND ($mahasiswa->jurusan_id != $request->jurusan_id)) {
+            Alert::error('Ubah Gagal', 'Jurusan tidak bisa diubah!');
+            return back()->withInput();
+        }
+        $mahasiswa->update($validated);
+        Alert::success('Berhasil', "Data Mahasiswa $request->nama berhasil diubah");
+        // return redirect('/mahasiswas');
+        return redirect($request->url_asal);
     }
 
     /**

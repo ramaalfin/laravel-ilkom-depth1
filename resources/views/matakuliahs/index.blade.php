@@ -17,11 +17,14 @@
             <th>Dosen Pengajar</th>
             <th>Jumlah SKS</th>
             <th>Jurusan</th>
+            @auth
+                <th>Action</th>
+            @endauth
         </tr>
     </thead>
     <tbody>
         @foreach ($matakuliahs as $matakuliah)
-        <tr>
+        <tr id="row-{{ $matakuliah->id }}">
             <th>{{ $matakuliahs->firstItem() + $loop->iteration - 1 }}</th>
             <td>{{ $matakuliah->kode }}</td>
             <td>
@@ -33,6 +36,11 @@
             </td>
             <td>{{ $matakuliah->jumlah_sks }}</td>
             <td>{{ $matakuliah->jurusan->nama }}</td>
+            @auth
+                <td>
+                    <a href="{{ route('matakuliahs.edit', ['matakuliah' => $matakuliah->id]) }}" class="btn btn-primary">Edit</a>
+                </td>
+            @endauth
         </tr>
         @endforeach
     </tbody>

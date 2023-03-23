@@ -13,6 +13,22 @@
 
     <div class="col">
         <div class="card h-100">
+            @auth
+                <div class="btn-group btn-action">
+                    <a href="{{ route('jurusans.edit', ['jurusan' => $jurusan->id]) }}">
+                        <div class="btn btn-primary d-inline-block">
+                            <i class="fas fa-edit fa-fw"></i>
+                        </div>
+                    </a>
+                    <form action="{{ route('jurusans.destroy', ['jurusan' => $jurusan->id]) }}" method="post">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="btn btn-danger shadow-none btn-hapus" title="Hapus Jurusan" data-name="{{ $jurusan->name }}" data-table="jurusan">
+                            <i class="fas fa-trash fa-fw"></i>
+                        </button>
+                    </form>
+                </div>
+            @endauth
             <div class="card-body text-center">
                 <h3 class="card-title py-1">{{ $jurusan->nama }}</h3>
                 <hr>

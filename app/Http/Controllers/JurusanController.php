@@ -82,7 +82,7 @@ class JurusanController extends Controller
      */
     public function edit(Jurusan $jurusan)
     {
-        //
+        return view('jurusans.edit', ['jurusan' => $jurusan]);
     }
 
     /**
@@ -90,7 +90,15 @@ class JurusanController extends Controller
      */
     public function update(Request $request, Jurusan $jurusan)
     {
-        //
+        $validated = $request->validate([
+            'nama' => 'required',
+            'kepala_jurusan' => 'required',
+            'daya_tampung' => 'required|min:10|integer'
+        ]);
+        $jurusan->update($validated);
+        Alert::success('Berhasil', "Data Jurusan $request->nama berhasil diubah");
+        // return redirect('/jurusans');
+        return redirect("/jurusans#card-{$jurusan->id}");
     }
 
     /**
@@ -98,6 +106,8 @@ class JurusanController extends Controller
      */
     public function destroy(Jurusan $jurusan)
     {
-        //
+        $jurusan->delete();
+        Alert::success('Berhasil', "Jurusan $jurusan->nama berhasil dihapus");
+        return redirect('/jurusans');
     }
 }

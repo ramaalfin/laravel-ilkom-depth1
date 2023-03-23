@@ -15,7 +15,7 @@ class DosenController extends Controller
     public function index()
     {
         return view('dosens.index', [
-            'dosens' => Dosen::with('jurusan')->orderByDesc('created_at')->paginate(5)
+            'dosens' => Dosen::with('jurusan')->orderBy('nama')->paginate(5)
         ]);
     }
 
@@ -41,7 +41,8 @@ class DosenController extends Controller
         ]);
         Dosen::create($validated);
         Alert::success('Berhasil', "Data Dosen $request->nama berhasil dibuat");
-        return redirect('/dosens');
+        // return redirect('/dosens');
+        return redirect($request->url_asal); //* $request->url_asal dikirim dari form dosens
     }
 
     /**
@@ -57,7 +58,10 @@ class DosenController extends Controller
      */
     public function edit(Dosen $dosen)
     {
-        //
+        return view('dosens.edit', [
+            'dosen' => $dosen,
+            'jurusans' => Jurusan::orderBy('nama')->get()
+        ]);
     }
 
     /**
@@ -65,7 +69,15 @@ class DosenController extends Controller
      */
     public function update(Request $request, Dosen $dosen)
     {
-        //
+        $validated = $request->validate([
+            'NID' => 'required|alpha_num|size:8|unique:dosens,NID,'.$dosen->id,
+            'nama' => 'required',
+            'jurusan_id' => 'required|exists:jurusans,id' //* set id yang sesuai dengan id di table jurusans
+        ]);
+        $dosen->update($validated);
+        Alert::success('Berhasil', "Data Dosen $request->nama berhasil diubah");
+        // return redirect('/dosens');
+        return redirect($request->url_asal); //* $request->url_asal dikirim dari form dosens
     }
 
     /**

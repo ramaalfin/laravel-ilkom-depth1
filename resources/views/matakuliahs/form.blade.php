@@ -28,36 +28,45 @@
 
 <div class="row mb-3">
     <label for="jurusan_id" class="col-md-3 col-form-label text-md-end">Pilih Jurusan</label>
-    @if (isset($dosen_id))
-    <div class="col-md-4 flex align-items-center">
-        @foreach ($jurusans as $jurusan)
-        {{ $jurusan->nama }}
-        @endforeach
-    </div>
-    <input type="hidden" name="jurusan_id" id="jurusan_id" value="{{ $jurusan->id }}">
+    @if ($tombol == 'Ubah' and $matakuliah->mahasiswas->count() > 0)
+        <div class="col-md-9 d-flex align-items-center">
+            <div>{{ $matakuliah->jurusan->nama }} <small>(tidak bisa diubah karena sudah diambil
+                {{ $matakuliah->mahasiswas->count() }} mahasiswa)</small>
+            </div>
+        </div>
+        <input type="hidden" name="jurusan_id" id="jurusan_id" value="{{ $matakuliah->jurusan_id }}">
     @else
-    <div class="col-md-4">
-        <select type="text" id="jurusan_id" class="form-select @error('jurusan_id') is-invalid @enderror"
-            name="jurusan_id">
-            @foreach ($jurusans as $jurusan)
-                @if ($jurusan->id == (old('jurusan_id') ?? ($mahasiswa->jurusan_id ?? '')))
-                    <option value="{{ $jurusan->id }}" selected>
-                        {{ $jurusan->nama }}
-                    </option>
-                @else
-                    <option value="{{ $jurusan->id }}">
-                        {{ $jurusan->nama }}
-                    </option>
-                @endif
-            @endforeach
-        </select>
+        @if (isset($dosen_id))
+            <div class="col-md-4 flex align-items-center">
+                @foreach ($jurusans as $jurusan)
+                    {{ $jurusan->nama }}
+                @endforeach
+            </div>
+            <input type="hidden" name="jurusan_id" id="jurusan_id" value="{{ $jurusan->id }}">
+        @else
+            <div class="col-md-4">
+                <select type="text" id="jurusan_id" class="form-select @error('jurusan_id') is-invalid @enderror"
+                    name="jurusan_id">
+                    @foreach ($jurusans as $jurusan)
+                        @if ($jurusan->id == (old('jurusan_id') ?? ($mahasiswa->jurusan_id ?? '')))
+                            <option value="{{ $jurusan->id }}" selected>
+                                {{ $jurusan->nama }}
+                            </option>
+                        @else
+                            <option value="{{ $jurusan->id }}">
+                                {{ $jurusan->nama }}
+                            </option>
+                        @endif
+                    @endforeach
+                </select>
 
-        @error('jurusan_id')
-            <span class="invalid-feedback" role="alert">
-                <strong>{{ $message }}</strong>
-            </span>
-        @enderror
-    </div>
+                @error('jurusan_id')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                @enderror
+            </div>
+        @endif
     @endif
 
 </div>
@@ -65,31 +74,31 @@
 <div class="row mb-3">
     <label for="dosen_id" class="col-md-3 col-form-label text-md-end">Pilih Dosen Pengajar</label>
     @if (isset($dosen_id))
-    <div class="col-md-4 flex align-items-center">
-        {{ $dosen_id->nama }}
-    </div>
-    <input type="hidden" name="dosen_id" id="dosen_id" value="{{ $dosen_id->id }}">
+        <div class="col-md-4 flex align-items-center">
+            {{ $dosen_id->nama }}
+        </div>
+        <input type="hidden" name="dosen_id" id="dosen_id" value="{{ $dosen_id->id }}">
     @else
-    <div class="col-md-4">
-        <select name="dosen_id" id="dosen_id"
-            class="form-select @error('dosen_id')
+        <div class="col-md-4">
+            <select name="dosen_id" id="dosen_id"
+                class="form-select @error('dosen_id')
             is-invalid
         @enderror">
-            @foreach ($dosens as $dosen)
-                @if ($dosen->id == (old('dosen_id') ?? ($matakuliah->dosen->id ?? '')))
-                    <option value="{{ $dosen->id }}" selected>{{ $dosen->nama }}</option>
-                @else
-                    <option value="{{ $dosen->id }}">{{ $dosen->nama }}</option>
-                @endif
-            @endforeach
-        </select>
+                @foreach ($dosens as $dosen)
+                    @if ($dosen->id == (old('dosen_id') ?? ($matakuliah->dosen->id ?? '')))
+                        <option value="{{ $dosen->id }}" selected>{{ $dosen->nama }}</option>
+                    @else
+                        <option value="{{ $dosen->id }}">{{ $dosen->nama }}</option>
+                    @endif
+                @endforeach
+            </select>
 
-        @error('dosen_id')
-            <span class="invalid-feedback" role="alert">
-                <strong>{{ $message }}</strong>
-            </span>
-        @enderror
-    </div>
+            @error('dosen_id')
+                <span class="invalid-feedback" role="alert">
+                    <strong>{{ $message }}</strong>
+                </span>
+            @enderror
+        </div>
     @endif
 </div>
 
@@ -112,6 +121,14 @@
         </select>
     </div>
 </div>
+
+{{-- Trik agar bisa kembali ke halaman yang klik --}}
+@isset($matakuliah)
+    {{-- $matakuliah berasal dari matakuliahController --}}
+    <input type="hidden" name="url_asal" value="{{ old('url_asal') ?? url()->previous() . '#row-' . $matakuliah->id }}">
+@else
+    <input type="hidden" name="url_asal" value="{{ old('url_asal') ?? url()->previous() }}">
+@endisset
 
 <div class="row">
     <div class="col-md-6 offset-md-3">

@@ -25,6 +25,10 @@ Route::get('/buat-matakuliah/{dosen_id}', [MatakuliahController::class, 'buatMat
 Route::get('/mahasiswas/ambil-matakuliah/{mahasiswa}', [MahasiswaController::class, 'ambilMatakuliah'])->name('ambil-matakuliah');
 Route::post('/mahasiswas/ambil-matakuliah/{mahasiswa}', [MahasiswaController::class, 'prosesAmbilMatakuliah'])->name('proses-ambil-matakuliah');
 
+// ROUTE MENDAFTARKAN MAHASISWA DARI VIEW SHOW MATA KULIAH
+Route::get('/matakuliahs/daftarkan-matakuliah/{matakuliah}', [MatakuliahController::class, 'daftarkanMatakuliah'])->name('daftarkan-matakuliah');
+Route::post('/matakuliahs/daftarkan-matakuliah/{matakuliah}', [MatakuliahController::class, 'prosesDaftarkanMatakuliah'])->name('proses-daftarkan-matakuliah');
+
 Auth::routes();
 
 Route::get('/home', [JurusanController::class, 'index'])->name('home');
