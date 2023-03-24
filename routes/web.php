@@ -4,6 +4,7 @@ use App\Http\Controllers\DosenController;
 use App\Http\Controllers\JurusanController;
 use App\Http\Controllers\MahasiswaController;
 use App\Http\Controllers\MatakuliahController;
+use App\Http\Controllers\PencarianController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -28,6 +29,10 @@ Route::post('/mahasiswas/ambil-matakuliah/{mahasiswa}', [MahasiswaController::cl
 // ROUTE MENDAFTARKAN MAHASISWA DARI VIEW SHOW MATA KULIAH
 Route::get('/matakuliahs/daftarkan-matakuliah/{matakuliah}', [MatakuliahController::class, 'daftarkanMatakuliah'])->name('daftarkan-matakuliah');
 Route::post('/matakuliahs/daftarkan-matakuliah/{matakuliah}', [MatakuliahController::class, 'prosesDaftarkanMatakuliah'])->name('proses-daftarkan-matakuliah');
+
+// ROUTES PENCARIAN
+Route::get('/pencarian', [PencarianController::class, 'index']);
+Route::get('/pencarian/proses', [PencarianController::class, 'proses']);
 
 Auth::routes();
 
