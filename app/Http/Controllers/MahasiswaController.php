@@ -45,7 +45,7 @@ class MahasiswaController extends Controller
         $matakuliah_jurusan = Matakuliah::where('jurusan_id', $mahasiswa->jurusan->id)->pluck('id')->toArray();
 
         $validated = $request->validate([
-            'matakuliah.*' => 'distinct|in:'.implode(',', $matakuliah_jurusan), // jika id mata kuliah yang dipilih ada di dalam syarat 'in', maka akan lolos validasi.
+            'matakuliah.*' => 'required|distinct|in:'.implode(',', $matakuliah_jurusan), // jika id mata kuliah yang dipilih ada di dalam syarat 'in', maka akan lolos validasi.
         ]);
 
         // INSERT KE DB

@@ -59,7 +59,7 @@ class MatakuliahController extends Controller
 
         // todo Insert ke DB
         $matakuliah->mahasiswas()->sync($validated['mahasiswa'] ?? []);
-        Alert::success('Berhasil', "Terdapat" . count($validated['mahasiswa'] ?? []) . " mahasiswa yang terdaftar");
+        Alert::success('Berhasil', "Terdapat " . count($validated['mahasiswa'] ?? []) . " mahasiswa yang terdaftar");
         return redirect(route('matakuliahs.show', ['matakuliah' => $matakuliah->id]));
     }
 
